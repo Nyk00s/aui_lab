@@ -5,8 +5,7 @@ public class AlbumCreateUpdateDTO {
     private String author;
     private int yearOfRelease;
 
-    public AlbumCreateUpdateDTO() {
-    }
+    public AlbumCreateUpdateDTO() {}
 
     public AlbumCreateUpdateDTO(String name, String author, int yearOfRelease) {
         this.name = name;
