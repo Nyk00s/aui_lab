@@ -24,7 +24,7 @@ public class Song implements Comparable<Song>, Serializable {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    protected Song() {} // wymagany przez JPA
+    protected Song() {}
 
     private Song(Builder b) {
         this.id = b.id != null ? b.id : UUID.randomUUID();
