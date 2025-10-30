@@ -44,7 +44,7 @@ public class SongController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/albums/{albumId}/songs")
+    @PostMapping("/albums/{albumId}/songs")
     public ResponseEntity<SongReadDTO> createSong(@PathVariable("albumId") UUID albumId, @RequestBody SongCreateUpdateDTO dto) {
         return albumService.findById(albumId).map(a -> {
             Song s = new Song.Builder()
@@ -63,8 +63,8 @@ public class SongController {
         return songService.findById(id).map(existing -> {
             existing = new Song.Builder()
                     .id(existing.getId())
-                    .name(existing.getName())
-                    .seconds(existing.getSeconds())
+                    .name(dto.getName())
+                    .seconds(dto.getSeconds())
                     .album(existing.getAlbum())
                     .build();
             Song saved = songService.save(existing);

@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,9 +23,14 @@ public class Song implements Comparable<Song>, Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "album_id")
+    @JsonBackReference
     private Album album;
 
-    protected Song() {}
+    public Song() {}
+
+    public Song(String name) {
+        this.name = name;
+    }
 
     private Song(Builder b) {
         this.id = b.id != null ? b.id : UUID.randomUUID();

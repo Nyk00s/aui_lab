@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -22,7 +23,8 @@ public class Album implements Comparable<Album>, Serializable {
     @Column(name = "year_of_release", nullable = false)
     private int yearOfRelease;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonBackReference
+    @OneToMany(mappedBy = "album", orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Song> songs = new ArrayList<>();
 
     protected Album() {}
