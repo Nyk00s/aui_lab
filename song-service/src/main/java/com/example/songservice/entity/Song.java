@@ -1,0 +1,84 @@
+package com.example.songservice.entity;
+
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.UUID;
+
+@Entity
+@Table(name = "songs")
+public class Song implements Comparable<Song>, Serializable {
+    private static final long serialVersionUID = 1L;
+
+
+    @Id
+    @Column(name = "id", nullable = false, updatable = false)
+    private UUID id;
+
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Column(name = "seconds", nullable = false)
+    private int seconds;
+
+    @Embedded
+    private AlbumSimplified album;
+
+    public Song() {}
+
+    public Song(UUID id, String name, int seconds, AlbumSimplified album) {
+        this.id = id;
+        this.name = name;
+        this.seconds = seconds;
+        this.album = album;
+    }
+
+    public UUID getId() { return id; }
+    public String getName() { return name; }
+    public int getSeconds() { return seconds; }
+    public AlbumSimplified getAlbum() { return album; }
+
+    public void setName(String name) { this.name = name; }
+    public void setSeconds(int seconds) { this.seconds = seconds; }
+    public void setAlbum(AlbumSimplified album) { this.album = album; }
+
+    public static class Builder {
+        private UUID id;
+        private String name;
+        private int seconds;
+        private AlbumSimplified album;
+
+        public Builder id(UUID id) { this.id = id; return this; }
+        public Builder name(String name) { this.name = name; return this; }
+        public Builder seconds(int seconds) { this.seconds = seconds; return this; }
+        public Builder album(AlbumSimplified album) { this.album = album; return this; }
+        public Song build() { return new Song(id, name, seconds, album); }
+    }
+
+    @Override
+    public int compareTo(Song o) {
+        if (o == null) return 1;
+        int cmp = this.name.compareToIgnoreCase(o.name);
+        if (cmp != 0) return cmp;
+        return Integer.compare(this.seconds, o.seconds);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Song)) return false;
+        Song that = (Song) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Song{id=" + id + ", name='" + name + "', seconds=" + seconds + "}";
+    }
+}

@@ -1,0 +1,34 @@
+package com.example.albumservice.dto;
+
+public class AlbumReadDTO {
+    private String id;
+    private String name;
+    private String author;
+    private int yearOfRelease;
+
+    public AlbumReadDTO() {}
+
+    public AlbumReadDTO(String id, String name, String author, int yearOfRelease) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.yearOfRelease = yearOfRelease;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public int getYearOfRelease() {
+        return yearOfRelease;
+    }
+
+}
