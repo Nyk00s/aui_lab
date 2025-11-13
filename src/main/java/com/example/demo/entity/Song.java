@@ -49,9 +49,6 @@ public class Song implements Comparable<Song>, Serializable {
 
     void setAlbum(Album album) {
         this.album = album;
-        if (album != null && !album.getSongs().contains(this)) {
-            album.addSong(this);
-        }
     }
 
     public static class Builder {
