@@ -24,16 +24,13 @@ public class Song implements Comparable<Song>, Serializable {
     @JoinColumn(name = "album_id")
     private Album album;
 
-    protected Song() {} // wymagany przez JPA
+    protected Song() {}
 
     private Song(Builder b) {
         this.id = b.id != null ? b.id : UUID.randomUUID();
         this.name = b.name;
         this.seconds = b.seconds;
         this.album = b.album;
-        if (this.album != null) {
-            this.album.addSong(this);
-        }
     }
 
     public UUID getId() { return id; }
@@ -43,9 +40,6 @@ public class Song implements Comparable<Song>, Serializable {
 
     void setAlbum(Album album) {
         this.album = album;
-        if (album != null && !album.getSongs().contains(this)) {
-            album.addSong(this);
-        }
     }
 
     public static class Builder {

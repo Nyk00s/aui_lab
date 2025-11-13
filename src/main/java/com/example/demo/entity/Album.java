@@ -22,7 +22,7 @@ public class Album implements Comparable<Album>, Serializable {
     @Column(name = "year_of_release", nullable = false)
     private int yearOfRelease;
 
-    @OneToMany(mappedBy = "album", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "album", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Song> songs = new ArrayList<>();
 
     protected Album() {}
@@ -48,9 +48,15 @@ public class Album implements Comparable<Album>, Serializable {
 
     public void addSong(Song s) {
         if (s == null) return;
+        if (s.getAlbum() == this) {
+            if (!songs.contains(s)) {
+                songs.add(s);
+            }
+            return;
+        }
+        s.setAlbum(this);
         if (!songs.contains(s)) {
             songs.add(s);
-            s.setAlbum(this);
         }
     }
 

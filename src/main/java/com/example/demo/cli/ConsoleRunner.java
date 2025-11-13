@@ -219,7 +219,13 @@ public class ConsoleRunner implements CommandLineRunner {
         String name = scanner.nextLine();
 
         System.out.println("Enter song duration (seconds): ");
-        int seconds = Integer.parseInt(scanner.nextLine());
+        int seconds;
+        try {
+            seconds = Integer.parseUnsignedInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Song cannot has negative value!");
+            return;
+        }
 
         System.out.println("Choose album (number): ");
         for (int i = 0; i < albums.size(); i++) {
