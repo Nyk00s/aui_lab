@@ -14,9 +14,8 @@ public class SongService {
     public SongService(SongRepository songRepository) {this.songRepository = songRepository; }
     public List<Song> findAll() { return songRepository.findAll(); }
     public Optional<Song> findById(UUID id) { return songRepository.findById(id); }
-    public List<Song> findByAlbum(AlbumSimplified album) { return songRepository.findByAlbum(album); }
     public List<Song> findByAlbumName(String name) { return songRepository.findByAlbum_NameIgnoreCase(name); }
-    public List<Song> findByAlbumId(UUID albumId) {return songRepository.findByAlbum_Id(albumId); }
+    public List<Song> findByAlbumId(UUID albumId) {return songRepository.findByAlbum_AlbumId(albumId); }
     public Song save(Song song) { return songRepository.save(song); }
     public void deleteById(UUID id) { songRepository.deleteById(id); }
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SongRepository extends JpaRepository<Song, UUID> {
-    List<Song> findByAlbum(AlbumSimplified album);
     List<Song> findByAlbum_NameIgnoreCase(String albumName);
-    List<Song> findByAlbum_Id(UUID albumId);
+    List<Song> findByAlbum_AlbumId(UUID album_id);
 }

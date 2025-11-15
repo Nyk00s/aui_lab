@@ -11,7 +11,6 @@ import java.util.UUID;
 public class Song implements Comparable<Song>, Serializable {
     private static final long serialVersionUID = 1L;
 
-
     @Id
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
@@ -27,11 +26,11 @@ public class Song implements Comparable<Song>, Serializable {
 
     public Song() {}
 
-    public Song(UUID id, String name, int seconds, AlbumSimplified album) {
-        this.id = id;
-        this.name = name;
-        this.seconds = seconds;
-        this.album = album;
+    private Song(Builder b) {
+        this.id = b.id != null ? b.id : UUID.randomUUID();
+        this.name = b.name;
+        this.seconds = b.seconds;
+        this.album = b.album;
     }
 
     public UUID getId() { return id; }
@@ -53,7 +52,7 @@ public class Song implements Comparable<Song>, Serializable {
         public Builder name(String name) { this.name = name; return this; }
         public Builder seconds(int seconds) { this.seconds = seconds; return this; }
         public Builder album(AlbumSimplified album) { this.album = album; return this; }
-        public Song build() { return new Song(id, name, seconds, album); }
+        public Song build() { return new Song(this); }
     }
 
     @Override

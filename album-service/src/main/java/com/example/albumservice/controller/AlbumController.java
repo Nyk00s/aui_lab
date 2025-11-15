@@ -1,5 +1,6 @@
 package com.example.albumservice.controller;
 
+import com.example.albumservice.client.SongClient;
 import com.example.albumservice.entity.Album;
 import com.example.albumservice.dto.*;
 import com.example.albumservice.service.*;
@@ -16,9 +17,11 @@ import java.util.stream.Collectors;
 public class AlbumController {
 
     private final AlbumService albumService;
+    private final SongClient songClient;
 
-    public AlbumController(AlbumService albumService) {
+    public AlbumController(AlbumService albumService, SongClient songClient) {
         this.albumService = albumService;
+        this.songClient = songClient;
     }
 
     @GetMapping
@@ -36,6 +39,15 @@ public class AlbumController {
                 .map(this::toAlbumReadDTO)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/songs")
+    public ResponseEntity<List<SongDTO>> getAlbumsSongs(@PathVariable("id") UUID id) {
+        return albumService.findById(id)
+                .map(album -> {
+                    List<SongDTO> songs = songClient.getSongsByAlbumId(id);
+                    return ResponseEntity.ok(songs);
+                }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -68,13 +80,18 @@ public class AlbumController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteAlbum(@PathVariable("id") UUID id) {
         return albumService.findById(id).map(a -> {
+            try {
+                songClient.deleteSongsByAlbumId(id);
+            } catch (Exception e) {
+                System.err.println("Error deleting songs for album " + id + ": " + e.getMessage());
+            }
             albumService.deleteId(id);
             return ResponseEntity.noContent().<Void>build();
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     private AlbumListDTO toAlbumListDTO(Album a) {
-        return new AlbumListDTO(a.getId().toString(), a.getName(), a.getAuthor());
+        return new AlbumListDTO(a.getId().toString(), a.getName(), a.getAuthor(), a.getYearOfRelease());
     }
 
     private AlbumReadDTO toAlbumReadDTO(Album a) {

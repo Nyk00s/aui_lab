@@ -24,11 +24,11 @@ public class DataInitializer {
         Album in_utero = new Album.Builder().name("In Utero").author("Nirvana").yearOfRelease(1993).build();
         Album one_x = new Album.Builder().name("One-X").author("Three Days Grace").yearOfRelease(2006).build();
 
-        albumService.save(hybrid_theory);
-        albumService.save(meteora);
-        albumService.save(from_zero);
-        albumService.save(nevermind);
-        albumService.save(in_utero);
-        albumService.save(one_x);
+        hybrid_theory = albumService.save(hybrid_theory);
+        meteora = albumService.save(meteora);
+        from_zero = albumService.save(from_zero);
+        nevermind = albumService.save(nevermind);
+        in_utero = albumService.save(in_utero);
+        one_x = albumService.save(one_x);
     }
 }
