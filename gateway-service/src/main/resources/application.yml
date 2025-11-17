@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: album-service
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/albums/**
+          filters:
+            - RewritePath=/api/albums/(?<segment>.*), /api/albums/${segment}
+
+        - id: song-service
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/songs/**
+          filters:
+            - RewritePath=/api/songs/(?<segment>.*), /api/songs/${segment}
+
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
