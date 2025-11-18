@@ -52,6 +52,9 @@ public class AlbumController {
 
     @PostMapping
     public ResponseEntity<AlbumReadDTO> createAlbum(@RequestBody AlbumCreateUpdateDTO dto) {
+        if (albumService.findByName(dto.getName()).isPresent()) {
+            return ResponseEntity.status(409).build();
+        }
         Album album = new Album.Builder()
                 .name(dto.getName())
                 .author(dto.getAuthor())
@@ -66,6 +69,19 @@ public class AlbumController {
     @PutMapping("/{id}")
     public ResponseEntity<AlbumReadDTO> updateAlbum(@PathVariable("id") UUID id, @RequestBody AlbumCreateUpdateDTO dto) {
         return albumService.findById(id).map(existing -> {
+
+            albumService.findByName(dto.getName()).ifPresent(found -> {
+                if (!found.getId().equals(id)) {
+                    throw new AlbumNameConflictException("Album with name '" + dto.getName() + "' already exists");
+                }
+            });
+
+            try {
+                songClient.updateSongs(id, dto.getName());
+            } catch (Exception e){
+                System.err.println("Error updating songs for album " + id + ": " + e.getMessage());
+            }
+
             existing = new Album.Builder()
                     .id(existing.getId())
                     .name(dto.getName())
@@ -96,5 +112,11 @@ public class AlbumController {
 
     private AlbumReadDTO toAlbumReadDTO(Album a) {
         return new AlbumReadDTO(a.getId().toString(), a.getName(), a.getAuthor(), a.getYearOfRelease());
+    }
+
+    private static class AlbumNameConflictException extends RuntimeException {
+        public AlbumNameConflictException(String message) {
+            super(message);
+        }
     }
 }

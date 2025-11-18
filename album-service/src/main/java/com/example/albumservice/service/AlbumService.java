@@ -16,6 +16,7 @@ public class AlbumService {
     public List<Album> findAll() { return albumRepository.findAll(); }
     public Optional<Album> findById(UUID id) { return albumRepository.findById(id); }
     public List<Album> findByAuthor(String author) { return albumRepository.findByAuthorIgnoreCase(author); }
+    public Optional<Album> findByName(String name) { return albumRepository.findByNameIgnoreCase(name); }
     public Album save(Album album) { return albumRepository.save(album); }
     public void deleteId(UUID id) { albumRepository.deleteById(id); }
 

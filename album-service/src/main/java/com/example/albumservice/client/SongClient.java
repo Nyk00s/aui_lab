@@ -1,6 +1,7 @@
 package com.example.albumservice.client;
 
 
+import com.example.albumservice.dto.AlbumCreateUpdateDTO;
 import com.example.albumservice.dto.SongDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -53,6 +54,17 @@ public class SongClient {
         } catch (Exception e) {
             System.err.println("Failed to delete songs from song service: " + e.getMessage());
             throw new RuntimeException("Failed to delete songs for album " + albumId, e);
+        }
+    }
+
+    public void updateSongs(UUID albumID, String albumName) {
+        try {
+            String url = songServiceUrl + "/api/songs/album/" + albumID;
+            restTemplate.put(url, albumName);
+            System.out.println("Updated album: " + albumID);
+        } catch (Exception e) {
+            System.err.println("Failed to update songs from song service: " + e.getMessage());
+            throw new RuntimeException("Failed to update songs for album " + albumID, e);
         }
     }
 

@@ -12,7 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -51,6 +53,12 @@ public class SongController {
         if (album == null) {
             return ResponseEntity.badRequest().build();
         }
+        if (dto.getSeconds() < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (Objects.equals(dto.getName(), album.getName())) {
+            return ResponseEntity.status(409).build();
+        }
 
         Song song = new Song.Builder()
                 .name(dto.getName())
@@ -71,6 +79,9 @@ public class SongController {
                         AlbumDTO album = albumClient.getAlbumById(dto.getAlbumId());
                         if (album == null) {
                             return ResponseEntity.badRequest().<SongReadDTO>build();
+                        }
+                        if (Objects.equals(dto.getName(), album.getName())) {
+                            return ResponseEntity.status(409).<SongReadDTO>build();
                         }
                         existing.setAlbum(new AlbumSimplified(dto.getAlbumId(), album.getName()));
                     }
@@ -117,6 +128,23 @@ public class SongController {
 
         System.out.println("Deleted " + songs.size() + " songs for album: " + albumId);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/album/{albumId}")
+    public ResponseEntity<List<SongListDTO>> updateSongs(@PathVariable UUID albumId, @RequestBody String albumName) {
+        List<Song> songs = songService.findByAlbumId(albumId);
+
+        if (songs.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        List<SongListDTO> songsDTO = new ArrayList<>();
+        for (Song song : songs) {
+            song.setAlbum(new AlbumSimplified(albumId, albumName));
+            Song updated = songService.save(song);
+            songsDTO.addLast(toSongListDTO(updated));
+        }
+        return ResponseEntity.ok(songsDTO);
     }
 
     private SongListDTO toSongListDTO(Song s) {
