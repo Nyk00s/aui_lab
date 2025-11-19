@@ -1,0 +1,67 @@
+### Get all albums
+GET http://localhost:8080/api/albums
+Accept: application/json
+
+
+### Get album by ID
+GET http://localhost:8080/api/albums/{{albumId}}
+Accept: application/json
+
+
+### Create new album
+POST http://localhost:8080/api/albums
+Content-Type: application/json
+
+{
+  "name": "Hybrid Theory",
+  "author": "Linkin Park",
+  "yearOfRelease": 2000
+}
+
+### Update album
+PUT http://localhost:8080/api/albums/{{albumId}}
+Content-Type: application/json
+
+{
+  "name": "Hybrid Theory (Remastered)",
+  "author": "Linkin Park",
+  "yearOfRelease": 2021
+}
+
+### Delete album
+DELETE http://localhost:8080/api/albums/{{albumId}}
+
+
+### Get all songs
+GET http://localhost:8080/api/songs
+Accept: application/json
+
+
+### Get song by ID
+GET http://localhost:8080/api/songs/{{songId}}
+Accept: application/json
+
+
+### Create new song
+POST http://localhost:8080/api/songs
+Content-Type: application/json
+
+{
+  "name": "In the End",
+  "seconds": 216
+  "albumId": "{{albumId}}"
+}
+
+
+### Update song
+PUT http://localhost:8080/api/songs/{{songId}}
+Content-Type: application/json
+
+{
+  "name": "In the End (Remastered)",
+  "seconds": 218
+  "albumId": "{{albumId}}"
+}
+
+### Delete song
+DELETE http://localhost:8080/api/songs/{{songId}}
