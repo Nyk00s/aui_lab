@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+       <div class="container">
+            <h2>Albums</h2>
+            <button class="btn btn-primary mb-3" (click)="goAdd()">Add album</button>
+            <div *ngIf="loading">loading ...</div>
+            <div *ngIf="error" class="text-danger">{{error}}</div>
+
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let a of albums">
+                <div (click)="viewDetails(a)" style="cursor:pointer">
+                    {{ a.name }}
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-sm btn-outline-secondary" (click)="edit(a)">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="remove(a)">Delete</button>
+                </div>
+                </li>
+            </ul>
+        </div>
+        
+        <script src="" async defer></script>
+    </body>
+</html>
