@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="00e01cb7-f63f-45e3-80a0-6e290d367ada" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/album-service/src/test/java/com/example/albumservice/RestApiIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/album-service/src/test/java/com/example/albumservice/RestApiIntegrationTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,8 +45,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "lab5",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/nikodem/IntellijProjects/aui_lab/album-service",
+    "last_opened_file_path": "/home/nikodem/IntellijProjects/aui_lab",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
