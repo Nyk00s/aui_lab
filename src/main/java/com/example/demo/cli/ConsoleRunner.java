@@ -255,6 +255,15 @@ public class ConsoleRunner implements CommandLineRunner {
         String id = scanner.nextLine();
         try {
             UUID uuid = UUID.fromString(id);
+
+            Optional<Album> albumOpt = albumService.findById(uuid);
+            if (albumOpt.isPresent()) {
+                List<Song> songs = songService.findByAlbum(albumOpt.get());
+                for (Song song : songs) {
+                    songService.deleteById(song.getId());
+                }
+            }
+
             albumService.deleteId(uuid);
             System.out.println("Album deleted.");
         } catch (Exception e) {

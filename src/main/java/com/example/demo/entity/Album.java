@@ -32,12 +32,6 @@ public class Album implements Comparable<Album>, Serializable {
         this.name = b.name;
         this.author = b.author;
         this.yearOfRelease = b.yearOfRelease;
-        if (b.songs != null) {
-            this.songs = b.songs;
-            for (Song s : this.songs) {
-                s.setAlbum(this);
-            }
-        }
     }
 
     public UUID getId() { return id; }
@@ -46,32 +40,17 @@ public class Album implements Comparable<Album>, Serializable {
     public int getYearOfRelease() { return yearOfRelease; }
     public List<Song> getSongs() { return Collections.unmodifiableList(songs); }
 
-    public void addSong(Song s) {
-        if (s == null) return;
-        if (s.getAlbum() == this) {
-            if (!songs.contains(s)) {
-                songs.add(s);
-            }
-            return;
-        }
-        s.setAlbum(this);
-        if (!songs.contains(s)) {
-            songs.add(s);
-        }
-    }
 
     public static class Builder {
         private UUID id;
         private String name;
         private String author;
         private int yearOfRelease;
-        private List<Song> songs;
 
         public Builder id(UUID id){ this.id = id; return this; }
         public Builder name(String name){ this.name = name; return this; }
         public Builder author(String author){ this.author = author; return this; }
         public Builder yearOfRelease(int yearOfRelease){ this.yearOfRelease = yearOfRelease; return this; }
-        public Builder songs(List<Song> songs){ this.songs = songs; return this; }
         public Album build(){ return new Album(this); }
     }
 
