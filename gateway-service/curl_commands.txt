@@ -1,0 +1,7 @@
+curl -X POST "http://localhost:8080/api/albums" -H "Content-Type: application/json" -d '{"name": "album", "author": "author", "yearOfRelease": 2025}'
+curl -X POST "http://localhost:8080/api/songs" -H "Content-Type: application/json" -d '{"name": "song1", "seconds": 12, "albumId": "albumId"}'
+curl -X POST "http://localhost:8080/api/songs" -H "Content-Type: application/json" -d '{"name": "song2", "seconds": 12, "albumId": "albumId"}'
+curl -X PUT "http://localhost:8080/api/albums/albumId" -H "Content-Type: application/json" -d '{"name": "albumik", "author": "Nikodem", "yearOfRelease": 2025}'
+curl -X PUT "http://localhost:8080/api/songs/songId" -H "Content-Type: application/json" -d '{"name": "song3", "seconds": 12}'
+curl -X DELETE "http://localhost:8080/api/songs/songId"
+curl -X DELETE "http://localhost:8080/api/albums/albumId"
