@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-album-form',
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './album-form.component.html'
 })
 export class AlbumFormComponent implements OnInit {

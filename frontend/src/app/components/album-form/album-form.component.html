@@ -1,43 +1,31 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        <div class="container">
-            <h2 *ngIf="!isEdit">Add album</h2>
-            <h2 *ngIf="isEdit">Edit album</h2>
-            <form [formGroup]="form" (ngSubmit)="submit()">
-                <div class="mb-3">
-                    <label class="form-label">Name</label>
-                    <input class="form-control" formControlName="name" />
-                    <div *ngIf="form.controls.name.touched && form.controls.name.invalid" class="text-danger">
-                        Name is needed
-                    </div>
 
-                    <label class="form-label">Author</label>
-                    <input class="form-control" formControlName="author" />
-                    <div *ngIf="form.controls.author.touched && form.controls.author.invalid" class="text-danger">
-                        author is needed
-                    </div>
+<div class="container">
+    <h2 *ngIf="!isEdit">Add album</h2>
+    <h2 *ngIf="isEdit">Edit album</h2>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input class="form-control" formControlName="name" />
+            <div *ngIf="form.controls.name.touched && form.controls.name.invalid" class="text-danger">
+                Name is needed
+            </div>
 
-                    <label class="form-label">year of release</label>
-                    <input class="form-control" formControlName="yearOfRelease" />
-                    <div *ngIf="form.controls.yearOfRelease.touched && form.controls.yearOfRelease.invalid" class="text-danger">
-                        Year is needed
-                    </div>
-                </div>
+            <label class="form-label">Author</label>
+            <input class="form-control" formControlName="author" />
+            <div *ngIf="form.controls.author.touched && form.controls.author.invalid" class="text-danger">
+                author is needed
+            </div>
 
-                <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save</button>
-                <button class="btn btn-secondary ms-2" type="button" (click)="cancel()">Cancel</button>
-            </form>
+            <label class="form-label">year of release</label>
+            <input class="form-control" formControlName="yearOfRelease" />
+            <div *ngIf="form.controls.yearOfRelease.touched && form.controls.yearOfRelease.invalid" class="text-danger">
+                Year is needed
+            </div>
         </div>
-        
-        <script src="" async defer></script>
-    </body>
-</html>
+
+        <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save</button>
+        <button class="btn btn-secondary ms-2" type="button" (click)="cancel()">Cancel</button>
+    </form>
+</div>
+
+<script src="" async defer></script>

@@ -14,13 +14,13 @@
             <h2>Song Details</h2>
 
             <div *ngIf="song">
-                <h4>{{ song.name }}</h4>
-                <h4>{{ song.seconds }}</h4>
-                <h4>{{ song.albumId }}</h4>
+                <h4>{{ song?.name }}</h4>
+                <h4>{{ song?.seconds }}</h4>
+                <h4>{{ song?.albumId }}</h4>
                 
                 <button class="btn btn-outline-secondary mt-3" (click)="edit()">Edit</button>
             </div>
-            <div *ngIf="!el">Loading...</div>
+            <div *ngIf="!song">Loading...</div>
         </div>
 
         

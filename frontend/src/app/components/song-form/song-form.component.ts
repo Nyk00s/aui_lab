@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Song } from '../../models/song.model';
 
 @Component({
   selector: 'app-song-form',
+  standalone: true,
+  imports: [ReactiveFormsModule],
   templateUrl: './song-form.component.html'
 })
 export class SongFormComponent implements OnInit {
@@ -31,7 +33,7 @@ export class SongFormComponent implements OnInit {
     this.route.paramMap.subscribe(pm => {
       this.albumId = pm.get('id') || pm.get('albumId') || undefined;
       const songId = pm.get('songId');
-      if (songId && this.songId) {
+      if (songId) {
         this.isEdit = true;
         this.songId = songId;
         this.api.getSong(this.songId).subscribe({

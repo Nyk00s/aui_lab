@@ -22,7 +22,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="lab3" />
+        <entry key="$PROJECT_DIR$" value="lab4" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -47,7 +47,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "lab5",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/nikodem/IntellijProjects/aui_lab",
+    "last_opened_file_path": "/home/nikodem/IntellijProjects/aui_lab/album-service",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>

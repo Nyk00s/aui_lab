@@ -15,26 +15,26 @@
 
             <h2>Album Details</h2>
             <div *ngIf="album">
-                <h4>{{ album.name }}</h4>
-                <h4>{{ album.author }}</h4>
-                <h4>{{ album.yearOfRelease }}</h4>
+                <h4>{{ album?.name }}</h4>
+                <h4>{{ album?.author }}</h4>
+                <h4>{{ album?.yearOfRelease }}</h4>
             </div>
 
             <hr/>
 
             <div class="d-flex justify-content-between align-items-center">
                 <h3>Songs</h3>
-                <button class="btn btn-primary" (click)="addElement()">Add song</button>
+                <button class="btn btn-primary" (click)="addSong()">Add song</button>
             </div>
 
             <ul class="list-group mt-2">
                 <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let s of songs">
-                <div (click)="viewElement(s)" style="cursor:pointer">
+                <div (click)="viewSong(s)" style="cursor:pointer">
                     {{ s.name }}
                 </div>
                 <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary" (click)="editElement(s)">Edit</button>
-                    <button class="btn btn-sm btn-outline-danger" (click)="removeElement(s)">Delete</button>
+                    <button class="btn btn-sm btn-outline-secondary" (click)="editSong(s)">Edit</button>
+                    <button class="btn btn-sm btn-outline-danger" (click)="removeSong(s)">Delete</button>
                 </div>
                 </li>
             </ul>
