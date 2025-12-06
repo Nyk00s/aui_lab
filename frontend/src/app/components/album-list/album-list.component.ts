@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { Album } from '../../models/album.model';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-album-list',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './album-list.component.html'
 })
 export class AlbumListComponent implements OnInit {
@@ -12,7 +16,7 @@ export class AlbumListComponent implements OnInit {
   loading = false;
   error = '';
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private router: Router, private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.load();
@@ -21,21 +25,21 @@ export class AlbumListComponent implements OnInit {
   load() {
     this.loading = true;
     this.api.getAlbums().subscribe({
-      next: data => { this.album = data; this.loading = false; },
-      error: err => { this.error = 'Error while getting album'; this.loading = false; }
+      next: data => { console.log('Albums Received: ', data); this.album = data; this.loading = false; this.cd.detectChanges(); },
+      error: err => { console.error(); this.error = 'Error while getting album'; this.loading = false; this.cd.detectChanges(); }
     });
   }
 
   goAdd() {
-    this.router.navigate(['/album/add']);
+    this.router.navigate(['/albums/add']);
   }
 
   edit(cat: Album) {
-    this.router.navigate(['/album/edit', cat.id]);
+    this.router.navigate(['/albums/edit', cat.id]);
   }
 
   viewDetails(cat: Album) {
-    this.router.navigate(['/album', cat.id]);
+    this.router.navigate(['/albums', cat.id]);
   }
 
   remove(cat: Album) {

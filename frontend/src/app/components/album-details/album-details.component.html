@@ -1,46 +1,30 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
-    <body>
-        
-        <div class="container">
-            <button class="btn btn-link" (click)="back()">Back</button>
 
-            <h2>Album Details</h2>
-            <div *ngIf="album">
-                <h4>{{ album?.name }}</h4>
-                <h4>{{ album?.author }}</h4>
-                <h4>{{ album?.yearOfRelease }}</h4>
-            </div>
+<div class="container">
+    <button class="btn btn-link" (click)="back()">Back</button>
 
-            <hr/>
+    <h2>Album Details</h2>
+    <div *ngIf="album">
+        <h4>Name: {{ album?.name }}</h4>
+        <h4>Author: {{ album?.author }}</h4>
+        <h4>Year of release: {{ album?.yearOfRelease }}</h4>
+    </div>
 
-            <div class="d-flex justify-content-between align-items-center">
-                <h3>Songs</h3>
-                <button class="btn btn-primary" (click)="addSong()">Add song</button>
-            </div>
+    <hr/>
 
-            <ul class="list-group mt-2">
-                <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let s of songs">
-                <div (click)="viewSong(s)" style="cursor:pointer">
-                    {{ s.name }}
-                </div>
-                <div class="btn-group">
-                    <button class="btn btn-sm btn-outline-secondary" (click)="editSong(s)">Edit</button>
-                    <button class="btn btn-sm btn-outline-danger" (click)="removeSong(s)">Delete</button>
-                </div>
-                </li>
-            </ul>
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Songs</h3>
+        <button class="btn btn-primary" (click)="addSong()">Add song</button>
+    </div>
+
+    <ul class="list-group mt-2">
+        <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let s of songs">
+        <div (click)="viewSong(s)" style="cursor:pointer">
+            {{ s.name }}
         </div>
-
-
-        <script src="" async defer></script>
-    </body>
-</html>
+        <div class="btn-group">
+            <button class="btn btn-sm btn-outline-secondary" (click)="editSong(s)">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="removeSong(s)">Delete</button>
+        </div>
+        </li>
+    </ul>
+</div>

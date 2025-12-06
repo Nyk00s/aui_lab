@@ -2,18 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Song } from '../../models/song.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-song-form',
-  standalone: true,
-  imports: [ReactiveFormsModule],
-  templateUrl: './song-form.component.html'
+    selector: 'app-song-form',
+    standalone: true,
+    imports: [ReactiveFormsModule, CommonModule],
+    templateUrl: './song-form.component.html'
 })
 export class SongFormComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
-  albumId?: string;
+  albumId!: string;
   songId?: string;
 
   constructor(
@@ -26,28 +26,32 @@ export class SongFormComponent implements OnInit {
   ngOnInit(): void {
     this.form = this.fb.group({
       name: ['', Validators.required],
-      seconds: ['', Validators.required],
-      albumName: ['', Validators.required]
+      seconds: ['', Validators.required]
     });
 
-    this.route.paramMap.subscribe(pm => {
-      this.albumId = pm.get('id') || pm.get('albumId') || undefined;
-      const songId = pm.get('songId');
-      if (songId) {
-        this.isEdit = true;
-        this.songId = songId;
-        this.api.getSong(this.songId).subscribe({
-          next: (el) => this.form.patchValue(el),
-          error: () => alert('Error while fetching Song')
-        });
-      }
-    });
+    this.albumId = this.route.snapshot.paramMap.get('albumId')!;
+    const songId = this.route.snapshot.paramMap.get('songId');
+    if (songId) {
+      this.isEdit = true;
+      this.songId = songId;
+
+      this.api.getSong(songId).subscribe({
+        next: song => this.form.patchValue({
+          name: song.name,
+          seconds: song.seconds
+        }),
+        error: () => alert('Error while fetching song')
+      });
+    }
   }
 
   submit() {
-    if (!this.albumId) return alert('No album');
     if (this.form.invalid) return;
-    const payload: Song = this.form.value;
+
+    const payload = {
+      ...this.form.value,
+      albumId: this.isEdit ? undefined : this.albumId
+    };
 
     if (this.isEdit && this.songId) {
       this.api.updateSong(this.songId, payload).subscribe({
@@ -57,7 +61,7 @@ export class SongFormComponent implements OnInit {
     } else {
       this.api.addSong(payload).subscribe({
         next: () => this.router.navigate(['/albums', this.albumId]),
-        error: () => alert('Errow while adding Song')
+        error: () => alert('Error while adding song')
       });
     }
   }

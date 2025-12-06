@@ -2,17 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-album-form',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './album-form.component.html'
 })
 export class AlbumFormComponent implements OnInit {
   form!: FormGroup;
   isEdit = false;
-  catId?: string;
+  albumId?: string;
 
   constructor(
     private fb: FormBuilder,
@@ -29,11 +30,11 @@ export class AlbumFormComponent implements OnInit {
     });
 
     this.route.paramMap.subscribe(pm => {
-      const id = pm.get('id');
-      if (id) {
+      const albumId = pm.get('albumId');
+      if (albumId) {
         this.isEdit = true;
-        this.catId = id;
-        this.api.getAlbum(id).subscribe({
+        this.albumId = albumId;
+        this.api.getAlbum(albumId).subscribe({
           next: cat => this.form.patchValue(cat),
           error: () => alert('error while fetching album')
         });
@@ -45,8 +46,8 @@ export class AlbumFormComponent implements OnInit {
     if (this.form.invalid) return;
     const payload = this.form.value;
 
-    if (this.isEdit && this.catId) {
-      this.api.updateAlbum(this.catId, payload).subscribe({
+    if (this.isEdit && this.albumId) {
+      this.api.updateAlbum(this.albumId, payload).subscribe({
         next: () => this.router.navigate(['/albums']),
         error: () => alert('error while updating')
       });

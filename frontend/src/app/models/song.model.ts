@@ -5,4 +5,5 @@ export interface Song {
     name: string;
     seconds: number;
     albumId: string | number;
+    albumName: string;
 }

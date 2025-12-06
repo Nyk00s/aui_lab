@@ -6,21 +6,24 @@
         <div class="mb-3">
             <label class="form-label">Name</label>
             <input class="form-control" formControlName="name" />
-            <div *ngIf="form.controls.name.touched && form.controls.name.invalid" class="text-danger">
+            <div *ngIf="form.controls['name'].touched && form.controls['name'].invalid" class="text-danger">
                 Name is needed
             </div>
+            <br/>
 
             <label class="form-label">Author</label>
             <input class="form-control" formControlName="author" />
-            <div *ngIf="form.controls.author.touched && form.controls.author.invalid" class="text-danger">
+            <div *ngIf="form.controls['author'].touched && form.controls['author'].invalid" class="text-danger">
                 author is needed
             </div>
+            <br/>
 
             <label class="form-label">year of release</label>
             <input class="form-control" formControlName="yearOfRelease" />
-            <div *ngIf="form.controls.yearOfRelease.touched && form.controls.yearOfRelease.invalid" class="text-danger">
+            <div *ngIf="form.controls['yearOfRelease'].touched && form.controls['yearOfRelease'].invalid" class="text-danger">
                 Year is needed
             </div>
+            <br/>
         </div>
 
         <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Save</button>
