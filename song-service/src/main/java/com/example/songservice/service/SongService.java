@@ -18,6 +18,9 @@ public class SongService {
     public List<Song> findByAlbumId(UUID albumId) {return songRepository.findByAlbum_AlbumId(albumId); }
     public Song save(Song song) { return songRepository.save(song); }
     public void deleteById(UUID id) { songRepository.deleteById(id); }
+    public boolean existsByNameAndAlbumName(String name, String albumName) {
+        return songRepository.findByNameAndAlbumName(name, albumName).isPresent();
+    }
 
 }
 
