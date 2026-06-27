@@ -22,7 +22,7 @@ public class SongClient {
     private final String songServiceUrl;
 
     public SongClient(RestTemplate restTemplate,
-                      @Value("${song.service.url:http://localhost:8082}") String songServiceUrl) {
+                      @Value("${SONG_SERVICE_URL:http://localhost:8082}") String songServiceUrl) {
         this.restTemplate = restTemplate;
         this.songServiceUrl = songServiceUrl;
     }

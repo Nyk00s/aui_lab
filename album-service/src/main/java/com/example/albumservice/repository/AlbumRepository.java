@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 public interface AlbumRepository extends JpaRepository<Album, UUID> {
     List<Album> findByAuthorIgnoreCase(String author);
     Optional<Album> findByNameIgnoreCase(String name);
+    boolean existsByNameIgnoreCase(String name);
 }

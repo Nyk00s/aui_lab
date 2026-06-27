@@ -19,7 +19,7 @@ public class AlbumClient {
     private final String albumServiceUrl;
 
     public AlbumClient(RestTemplate restTemplate,
-                       @Value("${album.service.url:http://localhost:8081}") String albumServiceUrl) {
+                       @Value("${ALBUM_SERVICE_URL:http://localhost:8081}") String albumServiceUrl) {
         this.restTemplate = restTemplate;
         this.albumServiceUrl = albumServiceUrl;
     }

@@ -1,0 +1,73 @@
+version: "3.9"
+
+services:
+
+  album-db:
+    image: postgres:16
+    container_name: album-db
+    environment:
+      POSTGRES_DB: albumdb
+      POSTGRES_USER: album
+      POSTGRES_PASSWORD: album
+    ports:
+      - "5433:5432"
+    volumes:
+      - album_data:/var/lib/postgresql/data
+
+  song-db:
+    image: postgres:16
+    container_name: song-db
+    environment:
+      POSTGRES_DB: songdb
+      POSTGRES_USER: song
+      POSTGRES_PASSWORD: song
+    ports:
+      - "5434:5432"
+    volumes:
+      - song_data:/var/lib/postgresql/data
+
+
+  album-service:
+    build: ./album-service
+    container_name: album-service
+    depends_on:
+      - album-db
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SONG_SERVICE_URL: http://song-service:8082
+    ports:
+      - "8081:8081"
+
+  song-service:
+    build: ./song-service
+    container_name: song-service
+    depends_on:
+      - song-db
+      - album-service
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      ALBUM_SERVICE_URL: http://album-service:8081
+    ports:
+      - "8082:8082"
+
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    depends_on:
+      - album-service
+      - song-service
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - gateway-service
+
+
+volumes:
+  album_data:
+  song_data:

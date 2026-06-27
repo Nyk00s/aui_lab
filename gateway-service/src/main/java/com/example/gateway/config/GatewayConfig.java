@@ -14,12 +14,12 @@ public class GatewayConfig {
                 // Album Service Routes
                 .route("album-service", r -> r
                         .path("/api/albums/**")
-                        .uri("http://localhost:8081"))
+                        .uri("http://album-service:8081"))
 
                 // Song Service Routes
                 .route("song-service", r -> r
                         .path("/api/songs/**")
-                        .uri("http://localhost:8082"))
+                        .uri("http://song-service:8082"))
 
                 .build();
     }

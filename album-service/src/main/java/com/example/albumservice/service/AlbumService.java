@@ -19,5 +19,6 @@ public class AlbumService {
     public Optional<Album> findByName(String name) { return albumRepository.findByNameIgnoreCase(name); }
     public Album save(Album album) { return albumRepository.save(album); }
     public void deleteId(UUID id) { albumRepository.deleteById(id); }
+    public boolean existsByName(String name) { return albumRepository.existsByNameIgnoreCase(name); }
 
 }
